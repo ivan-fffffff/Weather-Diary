@@ -55,8 +55,7 @@ class WeatherDiaryApp:
 
         self.records = []
         self.load_from_json()  # Загружаем данные при старте
-
-    def add_record(self):
+def add_record(self):
         date_str = self.date_entry.get()
         temp_str = self.temp_entry.get()
         description = self.desc_entry.get()
@@ -112,10 +111,9 @@ class WeatherDiaryApp:
         self.temp_entry.delete(0, tk.END)
         self.desc_entry.delete(0, tk.END)
         self.rain_var.set(False)
-
-    def apply_filters(self):
-        filter_date = self.filter_date_entry.get().strip()
-        filter_temp = self.filter_temp_entry.get().strip()
+def apply_filters(self):
+        filter_date = self.filter_date_entry.get()
+        filter_temp = self.filter_temp_entry.get()
 
         filtered = self.records
 
@@ -145,8 +143,7 @@ class WeatherDiaryApp:
                 record["description"],
                 rain_text
             ))
-
-    def save_to_json(self):
+  def save_to_json(self):
         try:
             with open("weather_diary.json", "w", encoding="utf-8") as f:
                 json.dump(self.records, f, ensure_ascii=False, indent=4)
@@ -160,12 +157,3 @@ class WeatherDiaryApp:
                 with open("weather_diary.json", "r", encoding="utf-8") as f:
                     self.records = json.load(f)
                 self.update_table()
-                messagebox.showinfo("Успех", "Данные загружены из weather_diary.json")
-            except json.JSONDecodeError:
-                messagebox.showerror("Ошибка", "Файл JSON повреждён. Создан пустой дневник.")
-                self.records = []
-            except Exception as e:
-                messagebox.showerror("Ошибка", f"Не удалось загрузить: {e}")
-                self.records = []
-        else:
-            messagebox.showinfo("Информация", "Файл weather_diary.
